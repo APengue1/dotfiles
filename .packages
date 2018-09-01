@@ -1,0 +1,14 @@
+- feh
+- xf86-input-synaptics
+- ttf-linux-libertine
+- ttf-inconsolata
+- noto-fonts
+- vlc
+- network-manager-applet
+- dmenu
+- i3-gaps
+- i3status
+- xorg-xinit
+- xorg-xserver
+- xorg
+- alsa-utils
