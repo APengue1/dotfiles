@@ -169,3 +169,4 @@ bar {
 }
 
 exec --no-startup-id feh --bg-scale ~/Pictures/.wallpaper
+bindsym $mod+Mod1+l exec i3lock
