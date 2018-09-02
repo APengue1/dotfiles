@@ -10,7 +10,5 @@
 
 PS1='[\u@\h \W]\$ '
 
-export TERMINAL="rxvt-unicode"
-
 [[ -f ~/.bash_exports ]] && . ~/.bash_exports
 
