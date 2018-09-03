@@ -37,4 +37,5 @@ URxvt.scrollBar: false
 URxvt.resize-font.smaller: C-Down
 URxvt.resize-font.bigger: C-Up
 URxvt.font: xft:monospace:size=11.5
-
+urxvt*transparent: true
+urxvt*shading: 20
