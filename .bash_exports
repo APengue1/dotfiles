@@ -2,8 +2,6 @@
 # ~/.bash_exports
 #
 
-export TERMINAL="rxvt-unicode"
-
 export GOENV_ROOT="$HOME/.goenv"
 export PATH="$GOENV_ROOT/bin:$PATH"
 eval "$(goenv init -)"
