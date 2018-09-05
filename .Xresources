@@ -2,8 +2,8 @@
 ! Scheme: Tyler Benziger (http://tybenz.com)
 
 URxvt*background:                     #000000
-URxvt*foreground:                     #ababab
-URxvt*cursorColor:                    #ababab
+URxvt*foreground:                     #cccccc
+URxvt*cursorColor:                    #cccccc
 
 URxvt*scrollColor:                    #ababab
 URxvt*highlightColor:                 #102015
