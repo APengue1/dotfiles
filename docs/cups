@@ -1,0 +1,19 @@
+#
+# Printer Management
+#
+
+- cups
+- avahi
+- nss-mdns
+
+Then, edit the file /etc/nsswitch.conf and change the hosts line to include:
+`mdns_minimal [NOTFOUND=return]` before resolve and dns:
+`hosts: ... mdns_minimal [NOTFOUND=return] resolve [!UNAVAIL=return] dns ...`
+ 
+
+Enable and start org.cups.cupsd.service
+Enable and start avahi-daemon.service
+
+avahi-discover -> shows devices on network
+lp* and cups* cli available to manage.
+Or, localhost:631. Log in as user `root` and use root password.

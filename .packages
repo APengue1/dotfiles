@@ -21,4 +21,7 @@
 - polybar
 - jsoncpp
 - ttf-font-awesome
+- cups
+- avahi
+- nss-mdns 
 
