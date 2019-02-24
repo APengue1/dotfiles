@@ -1,0 +1,12 @@
+[Unit]
+Description=Lock the screen before suspending
+Before=sleep.target suspend.target
+
+[Service]
+User=apengue
+Type=forking
+Environment=DISPLAY=:0
+ExecStart=/home/apengue/bin/my.i3lock
+
+[Install]
+WantedBy=sleep.target suspend.target
