@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# $1: ifname
+# $2: ssid
+
+nmcli device wifi connect $2 ifname $1 name $2 private yes --ask
+
