@@ -16,5 +16,4 @@ config config --local status.showUntrackedFiles no
 
 cd
 config checkout
-config restore *
 
