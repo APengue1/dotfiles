@@ -8,7 +8,9 @@
 	- [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
 
 # Install
-`./install.sh`
+- `git clone https://github.com/APengue1/dotfiles.git ~/.dotfiles`
+- `alias config='$(which git) --git-dir=$HOME/.dotfiles/.git/ --work-tree=$HOME'`
+- `~/.dotfiles/install.sh`
 
 # Usage
 
