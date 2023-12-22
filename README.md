@@ -14,3 +14,9 @@
 
 `config checkout`
 
+# TODO
+
+- Clone repos on install if not exists:
+	- zsh themes
+	- zsh plugins 
+
