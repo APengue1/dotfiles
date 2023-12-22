@@ -2,3 +2,8 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
+# Load aliases file
+if [ -f $HOME/.aliases ]; then
+    source $HOME/.aliases
+fi
+
