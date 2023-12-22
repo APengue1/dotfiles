@@ -13,6 +13,12 @@ if [ -e "$HOME/.xrc" ] ; then
     source $HOME/.xrc
 fi
 
+# Load aliases file
+if [ -f ~/.aliases ]; then
+    source ~/.aliases
+fi
+
+
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
