@@ -14,7 +14,16 @@
 
 # Usage
 
-`config checkout`
+`config` is now an alias referencing your $HOME directory as the git working tree. 
+
+You can:
+
+- `config add`
+- `config commit`
+- `config push`
+
+To update your $HOME directory with updated dotfiles, run the install script again:
+- `~/.dotfiles/install.sh`
 
 # TODO
 
