@@ -1,7 +1,7 @@
 Inspiration taken from:
 
-- https://www.atlassian.com/git/tutorials/dotfiles
 - https://www.ackama.com/what-we-think/the-best-way-to-store-your-dotfiles-a-bare-git-repository-explained/
+- https://www.atlassian.com/git/tutorials/dotfiles
 
 # Prerequisites
 
@@ -22,12 +22,12 @@ Inspiration taken from:
 `config` is now an alias referencing your $HOME directory as the git working tree. 
 
 You can:
-
 - `config add`
 - `config commit`
 - `config push`
 
-To update your $HOME directory with updated dotfiles, run the install script again:
+To update your $HOME directory with updated dotfiles upstream, run the install script again:
+- `config pull`
 - `~/.dotfiles/install.sh`
 
 # TODO
