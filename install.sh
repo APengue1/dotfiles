@@ -54,13 +54,17 @@ function config_checkout_patch () {
         echo ""                                                   
         config checkout --patch $1                             
 }                                                                        
+
+function file_exclusions () {
+        echo ":!:README.md :!:install.sh :!:LICENSE"
+}
                                                          
 
 
 # Checkout (copy) the contents of this repository into your $HOME directory.
 # For files that do not exist, checkout normally.
 
-non_existing_files=$(config ls-files --deleted)
+non_existing_files=$(config ls-files --deleted -- $(file_exclusions))
 if [[ "$non_existing_files" ]]; then
         echo "The following files do not exist on disk. Checkout them out.."
         print_files "$non_existing_files"
@@ -70,7 +74,7 @@ fi
 
 # For remaining files that exist already, choose what to do with them.
 
-pre_existing_files=$(config ls-files --modified)
+pre_existing_files=$(config ls-files --modified -- $(file_exclusions))
 if [[ "$pre_existing_files" ]]; then
         echo "The following files already exist on disk:"
         print_files "$pre_existing_files"
