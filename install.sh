@@ -1,14 +1,12 @@
 #!/bin/sh
 
 
-
 # Add config alias for this script.
 # Sets the git working tree to $HOME
 alias config='$(which git) --git-dir=$HOME/.dotfiles/.git/ --work-tree=$HOME'
 
 # Do not show untracked files in $HOME directory.
 config config --local status.showUntrackedFiles no
-
 
 
 function print_files () {
@@ -35,7 +33,6 @@ function backup_and_restore () {
         echo "Backing up existing files and checking out the new ones..."
         backup_files "$1"                                      
         config restore $1                                                
-                                                               
 }                                                                        
                                                                
 function config_checkout_patch () {                                      
@@ -93,7 +90,7 @@ if [[ "$pre_existing_files" ]]; then
                         config_checkout_patch "$pre_existing_files"
                         ;;
                 "3")
-			                       echo "Doing nothing... Exiting."
+			echo "Doing nothing... Exiting."
                         ;;
                 *)
                         echo "Invalid option... Exiting."
