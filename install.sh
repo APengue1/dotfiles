@@ -1,6 +1,9 @@
 #!/bin/sh
 
 
+# Run all commands relative to the $HOME directory
+cd $HOME
+
 # Add config alias for this script.
 # Sets the git working tree to $HOME
 alias config='$(which git) --git-dir=$HOME/.dotfiles/.git/ --work-tree=$HOME'
