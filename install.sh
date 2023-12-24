@@ -9,18 +9,18 @@ alias config='$(which git) --git-dir=$HOME/.dotfiles/.git/ --work-tree=$HOME'
 config config --local status.showUntrackedFiles no
 
 
-function print_files () {
+print_files () {
         for filename in $1; do
                 echo $filename;
         done
         echo ""
 }
 
-function now () {
+now () {
         echo $(date +"%Y-%m-%dT%H.%M.%S")
 }
 
-function backup_files () {
+backup_files () {
         for filename in $1; do
                 datetime=$(now)
                 backup_file=$filename.before_dotfiles_$datetime
@@ -29,13 +29,13 @@ function backup_files () {
         done
 }
                                                  
-function backup_and_restore () {                                             
+backup_and_restore () {                                             
         echo "Backing up existing files and checking out the new ones..."
         backup_files "$1"                                      
         config restore $1                                                
 }                                                                        
                                                                
-function config_checkout_patch () {                                      
+config_checkout_patch () {                                      
         read -p "Backup existing files first (y/n)? " do_backup
         case $do_backup in                                               
                 y|Y )                                          
@@ -55,7 +55,7 @@ function config_checkout_patch () {
         config checkout --patch $1                             
 }                                                                        
 
-function file_exclusions () {
+file_exclusions () {
         echo ":!:README.md :!:install.sh :!:LICENSE"
 }
                                                          
@@ -65,7 +65,7 @@ function file_exclusions () {
 # For files that do not exist, checkout normally.
 
 non_existing_files=$(config ls-files --deleted -- $(file_exclusions))
-if [[ "$non_existing_files" ]]; then
+if [ "$non_existing_files" ]; then
         echo "The following files do not exist on disk. Checkout them out.."
         print_files "$non_existing_files"
         config checkout $non_existing_files --quiet
@@ -75,7 +75,7 @@ fi
 # For remaining files that exist already, choose what to do with them.
 
 pre_existing_files=$(config ls-files --modified -- $(file_exclusions))
-if [[ "$pre_existing_files" ]]; then
+if [ "$pre_existing_files" ]; then
         echo "The following files already exist on disk:"
         print_files "$pre_existing_files"
 
