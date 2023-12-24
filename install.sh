@@ -8,6 +8,30 @@ alias config='$(which git) --git-dir=$HOME/.dotfiles/.git/ --work-tree=$HOME'
 # Do not show untracked files in $HOME directory.
 config config --local status.showUntrackedFiles no
 
+# Clone required repositories if they do not exist
+if [ ! -d "$HOME/.oh-my-zsh" ]; then
+	echo "Cloning ohmyzsh.git into $HOME/.oh-my-zsh"
+	git clone --quiet https://github.com/ohmyzsh/ohmyzsh.git $HOME/.oh-my-zsh
+fi
+
+if [ ! -d "$HOME/.oh-my-zsh/custom/themes/powerlevel10k" ]; then
+	echo "Cloning powerlevel10k.git into $HOME/.oh-my-zsh/custom/themes/powerlevel10k"
+	git clone --quiet --depth=1 https://github.com/romkatv/powerlevel10k.git $HOME/.oh-my-zsh/custom/themes/powerlevel10k
+fi
+
+if [ ! -d "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions" ]; then
+	echo "Cloning zsh-autosuggestions.git into $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+	git clone --quiet https://github.com/zsh-users/zsh-autosuggestions $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+fi
+
+if [ ! -d "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" ]; then
+	echo "Cloning zsh-syntax-highlighting.git into $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
+	git clone --quiet https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+fi
+
+echo "All required repositories exist."
+echo ""
+
 
 print_files () {
         for filename in $1; do
