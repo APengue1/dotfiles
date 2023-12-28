@@ -11,3 +11,8 @@ if [ -f $HOME/.aliases ]; then
     source "$HOME/.aliases"
 fi
 
+# Load the .localrc file for local specific settings
+if [ -f $HOME/.localrc ]; then
+    source "$HOME/.localrc"
+fi
+

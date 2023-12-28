@@ -112,7 +112,3 @@ if ! shopt -oq posix; then
   fi
 fi
 
-if [ -f ~/.xrc ]; then
-    . ~/.xrc
-fi
-
