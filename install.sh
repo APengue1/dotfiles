@@ -4,6 +4,12 @@
 # Run all commands relative to the $HOME directory
 cd $HOME
 
+# Create .localrc file if it doesn't exist already
+if [ ! -f "$HOME/.localrc" ]; then
+	echo "$HOME/.localrc file does not exist. Creating it..."
+	echo "# Use this file to add any local machine specific settings." > .localrc
+fi
+
 # Add config alias for this script.
 # Sets the git working tree to $HOME
 alias config='$(which git) --git-dir=$HOME/.dotfiles/.git/ --work-tree=$HOME'
