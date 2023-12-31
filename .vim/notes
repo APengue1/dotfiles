@@ -1,0 +1,53 @@
+a: append
+A: append to end of line
+I: insert at beginning of line
+
+o: insert beginning of next line
+O: insert beginning of previous line
+
+^, 0: beginning of line
+$: end of line
+e: end of next word
+w: beginning of next word
+b: beginning of previous word
+
+d: delete
+p yank/copy
+
+u: undo
+U: undo line
+ctrl-R: redo
+
+r<x>: replace character
+cx: replace <motion>
+R: replace as you type
+
+ctrl-G: show line information
+G: end of file
+<number>G: Go to line
+gg: beginning of file
+
+/: search
+?: search backwards
+n: next result
+N: previous result
+ctrl-O: O as in capital o, go back to where we came from when we originally searched.
+ctrl-I: goes forward
+
+%: find matching (, {, [
+
+type   :s/old/new      	  replace first occurence
+type   :s/old/new/g       replace occurences in line
+type   :#,#s/old/new/g    where #,# are the line numbers of the range of lines where the substitution is to be done.
+Type   :%s/old/new/g      to change every occurrence in the whole file.
+Type   :%s/old/new/gc     to find every occurrence in the whole file, with a prompt whether to substitute or not.
+
+:!<command> to run any external shell commands
+
+:w <FILE> saves contents of vim file to FILE
+:r <FILE>,<command> adds contents to cursor
+
+ctrl-w ctrl-w: (yes, twice) switches vim window
+
+ctrl-d: command completion of :
+
