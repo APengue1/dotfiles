@@ -2,3 +2,6 @@
 	name = Angelo Pengue
 [core]
 	excludesFile = ~/.gitignore
+	editor = nvim
+[commit]
+	gpgsign = true
