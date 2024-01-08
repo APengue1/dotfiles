@@ -1,3 +1,5 @@
+Manages dotfiles with git by setting the worktree to $HOME.
+
 Inspiration taken from:
 
 - https://www.ackama.com/what-we-think/the-best-way-to-store-your-dotfiles-a-bare-git-repository-explained/
@@ -16,8 +18,7 @@ The following are automatically installed
 
 # Install
 - `git clone https://github.com/APengue1/dotfiles.git ~/.dotfiles`
-- `alias config='$(which git) --git-dir=$HOME/.dotfiles/.git/ --work-tree=$HOME'`
-- `~/.dotfiles/install.sh`
+- `cd && .dotfiles/install.sh`
 
 # Usage
 
@@ -30,9 +31,5 @@ You can:
 
 To update your $HOME directory with updated dotfiles upstream, run the install script again:
 - `config pull`
-- `~/.dotfiles/install.sh`
-
-# TODO
-
-- Nothing right now. :)
+- `cd && .dotfiles/install.sh`
 
