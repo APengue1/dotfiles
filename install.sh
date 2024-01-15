@@ -43,6 +43,11 @@ if [ ! -d "$HOME/.config/nvim" ]; then
 	git clone --quiet git@github.com:APengue1/nvim.git $HOME/.config/nvim
 fi
 
+if [ ! -d "$HOME/.config/wezterm" ]; then
+	echo "Cloning git@github.com:APengue1/wezterm.git into $HOME/.config/wezterm"
+	git clone --quiet git@github.com:APengue1/wezterm.git $HOME/.config/wezterm
+fi
+
 echo "All required repositories exist."
 echo ""
 
