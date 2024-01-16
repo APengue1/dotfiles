@@ -38,6 +38,11 @@ if [ ! -d "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" ]; then
 	git clone --quiet https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 fi
 
+if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
+	echo "Cloning tpm.git into $HOME/.tmux/plugins/tpm"
+	git clone --quiet https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
+fi
+
 if [ ! -d "$HOME/.config/nvim" ]; then
 	echo "Cloning git@github.com:APengue1/nvim.git into $HOME/.config/nvim"
 	git clone --quiet git@github.com:APengue1/nvim.git $HOME/.config/nvim
