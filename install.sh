@@ -1,6 +1,5 @@
 #!/bin/sh
 
-
 # Run all commands relative to the $HOME directory
 cd $HOME
 
@@ -53,9 +52,14 @@ if [ ! -d "$HOME/.config/wezterm" ]; then
 	git clone --quiet git@github.com:APengue1/wezterm.git $HOME/.config/wezterm
 fi
 
-echo "All required repositories exist."
-echo ""
+echo 'Making sure $HOME/.config/nvim is up to date...'
+git -C $HOME/.config/nvim pull
 
+echo 'Making sure $HOME/.config/wezterm is up to date...'
+git -C $HOME/.config/wezterm pull
+
+echo "All required repositories exist and up to date."
+echo ""
 
 print_files () {
         for filename in $1; do
