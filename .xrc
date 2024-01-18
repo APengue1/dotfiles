@@ -11,6 +11,11 @@ if [ -f $HOME/.aliases ]; then
     source "$HOME/.aliases"
 fi
 
+# Load env file
+if [ -f $HOME/.env ]; then
+    source "$HOME/.env"
+fi
+
 # Load the .localrc file for local specific settings
 if [ -f $HOME/.localrc ]; then
     source "$HOME/.localrc"
