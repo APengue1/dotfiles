@@ -134,9 +134,9 @@ if [ "$pre_existing_files" ]; then
         print_files "$pre_existing_files"
 
         echo "What would you like to do?"
-        echo "1. Backup existing files and 'git restore' the new ones."
-        echo "2. Checkout each hunk individually with 'git checkout --patch'."
-        echo "3. Do nothing."
+        echo "  1. Backup existing files and 'git restore' the new ones."
+        echo "  2. Checkout each hunk individually with 'git checkout --patch'."
+        echo "* 3. Do nothing. (default)"
         echo ""
 
         read choice
@@ -147,7 +147,7 @@ if [ "$pre_existing_files" ]; then
                 "2")
                         config_checkout_patch "$pre_existing_files"
                         ;;
-                "3")
+                "3"|"")
 			echo "Doing nothing... Exiting."
                         ;;
                 *)
