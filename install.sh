@@ -52,12 +52,14 @@ if [ ! -d "$HOME/.config/wezterm" ]; then
 	git clone --quiet git@github.com:APengue1/wezterm.git $HOME/.config/wezterm
 fi
 
+echo ""
 echo 'Making sure $HOME/.config/nvim is up to date...'
-git -C $HOME/.config/nvim pull
+git -C $HOME/.config/nvim pull --quiet
 
 echo 'Making sure $HOME/.config/wezterm is up to date...'
-git -C $HOME/.config/wezterm pull
+git -C $HOME/.config/wezterm pull --quiet
 
+echo ""
 echo "All required repositories exist and up to date."
 echo ""
 
