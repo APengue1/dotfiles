@@ -27,7 +27,7 @@ remove () {
 	to_remove=$(
 		git worktree list --porcelain | \
 		grep worktree | \
-		sed 's worktree  ' | \
+		awk '{print $NF}' | \
 		fzf
 	)
 	git worktree remove $to_remove 
