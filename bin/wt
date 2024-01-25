@@ -20,24 +20,42 @@ if [ $# -eq 0 ]; then
 	print_usage
 fi
 
+git_dir () {
+	if [ -d ".bare" ]; then
+		echo "-C .bare"
+	else
+		echo ""
+	fi
+}
+
 add () {
-	worktree_dir=$1
 	worktree=$(
-		git branch --list | \
+		git $(git_dir) branch --list | \
 		awk '{ print $NF }' | \
 		fzf
 	)
-	git worktree add $worktree_dir $worktree
+
+	if [ "$1" ]; then
+		worktree_dir="$1"
+	else
+		worktree_dir="$worktree"
+	fi
+
+	if [ "$(git_dir)" ]; then
+		worktree_dir="../$worktree_dir"
+	fi
+
+	git $(git_dir) worktree add $worktree_dir $worktree
 }
 
 remove () {
 	to_remove=$(
-		git worktree list --porcelain | \
+		git $(git_dir) worktree list --porcelain | \
 		grep worktree | \
 		awk '{print $NF}' | \
 		fzf
 	)
-	git worktree remove $to_remove 
+	git $(git_dir) worktree remove $to_remove
 	echo "Removed worktree:" $to_remove
 }
 
