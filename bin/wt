@@ -3,35 +3,22 @@
 set -e
 
 print_usage () {
-	code=1
-	if [ -n "$1" ]; then
-		code=$1
-	fi
-
 	echo 'Usage:\n'
-	echo 'wt <clone> <remote-url> [destination] [--bare]'
+	echo 'wt <clone> <remote-url> [destination]'
 	echo 'wt <add|a> [worktree_dir]'
 	echo 'wt <remove|rm>'
 	echo 'wt <help|-h|--help>'
-
-	exit $code
 }
 
 if [ $# -eq 0 ]; then
 	print_usage
+	exit 1
 fi
-
-git_dir () {
-	if [ -d ".bare" ]; then
-		echo "-C .bare"
-	else
-		echo ""
-	fi
-}
 
 add () {
 	worktree=$(
-		git $(git_dir) branch --list | \
+		git  branch --list -a | \
+		sed 's.remotes/origin/..' | \
 		awk '{ print $NF }' | \
 		fzf
 	)
@@ -42,34 +29,24 @@ add () {
 		worktree_dir="$worktree"
 	fi
 
-	if [ "$(git_dir)" ]; then
-		worktree_dir="../$worktree_dir"
-	fi
-
-	git $(git_dir) worktree add $worktree_dir $worktree
+	git  worktree add $worktree_dir $worktree
 }
 
 remove () {
 	worktree=$(
-		git $(git_dir) worktree list --porcelain | \
+		git  worktree list --porcelain | \
 		grep worktree | \
 		awk '{print $NF}' | \
 		fzf
 	)
-	git $(git_dir) worktree remove $worktree
+	git  worktree remove $worktree
 	echo "Removed worktree:" $worktree
 }
 
 clone () {
 	remote_url=$1
-	if [ "$2" = "--bare" ]; then
-		bare="--bare"
-	else
-		destination=$2
-		bare=$3
-	fi
+	destination=$2
 
-	main_dir="./"
 	clone_dir=$(
 		echo $(basename $remote_url) | \
 		awk -F '.' '{ print $1 }'
@@ -78,20 +55,14 @@ clone () {
 	if [ -n "$destination" ]; then
 		clone_dir=$destination
 	fi
-	if [ "$bare" = "--bare" ]; then
-		clone_dir="$clone_dir/.bare"
-		main_dir="../"
-	fi
 
-	git clone --bare $remote_url $clone_dir
+	git clone --bare $remote_url $clone_dir/.git
 	main_branch=$(
 		git -C $clone_dir branch --list | \
 		grep '*' | \
 		awk '{print $NF}'
 	)
-	git -C $clone_dir worktree add \
-		$main_dir/$main_branch \
-		$main_branch
+	git -C $clone_dir worktree add $main_branch
 }
 
 cmd=$1
@@ -106,15 +77,18 @@ case $cmd in
 		if [ $# -lt 2 ]; then
 			echo "Remote URL required."
 			print_usage
+			exit 1
 		fi
-		clone $2 $3 $4
+		clone $2 $3
 		;;
 	"-h" | "--help" | "help")
-		print_usage 0
+		print_usage
+		exit 0
 		;;
 	*)
 		echo "wt: invalid command: $cmd"
 		print_usage
+		exit 1
 		;;
 esac
 
