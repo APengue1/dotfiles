@@ -3,12 +3,17 @@
 set -e
 
 print_usage () {
-	echo 'Required args not supplied.'
-	echo '\nUsage:\n'
+	code=1
+	if [ -n "$1" ]; then
+		code=$1
+	fi
+
+	echo 'Usage:\n'
 	echo 'wt <add|a> [worktree_dir]'
 	echo 'wt <remove|rm>'
 	echo 'wt <clone> <remote-url> [destination]'
-	exit 1
+
+	exit $code
 }
 
 if [ $# -eq 0 ]; then
@@ -50,10 +55,10 @@ clone () {
 
 action=$1
 case $action in
-	"add"|"a")
+	"add" | "a")
 		add $2
 		;;
-	"remove"|"rm")
+	"remove" | "rm")
 		remove
 		;;
 	"clone")
@@ -62,6 +67,9 @@ case $action in
 			print_usage
 		fi
 		clone $2 $3
+		;;
+	"-h" | "--help" | "help")
+		print_usage 0
 		;;
 	*)
 		echo "Invalid action: $action"
