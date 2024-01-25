@@ -93,8 +93,8 @@ clone () {
 		$main_branch
 }
 
-action=$1
-case $action in
+cmd=$1
+case $cmd in
 	"add" | "a")
 		add $2
 		;;
@@ -112,7 +112,7 @@ case $action in
 		print_usage 0
 		;;
 	*)
-		echo "wt: invalid command: $action"
+		echo "wt: invalid command: $cmd"
 		print_usage
 		;;
 esac
