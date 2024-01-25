@@ -22,11 +22,12 @@ fi
 
 add () {
 	worktree_dir=$1
-	git worktree add $worktree_dir $(
+	worktree=$(
 		git branch --list | \
 		awk '{ print $NF }' | \
 		fzf
 	)
+	git worktree add $worktree_dir $worktree
 }
 
 remove () {
