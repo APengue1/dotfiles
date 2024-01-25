@@ -44,7 +44,10 @@ remove () {
 clone () {
 	remote_url=$1
 	destination=$2
-	clone_dir=$(echo $(basename $remote_url) | awk -F '.' '{ print $1 }')
+	clone_dir=$(
+		echo $(basename $remote_url) | \
+		awk -F '.' '{ print $1 }'
+	)
 
 	if [ -n "$destination" ]; then
 		clone_dir=$destination
@@ -73,7 +76,7 @@ case $action in
 		print_usage 0
 		;;
 	*)
-		echo "Invalid action: $action"
+		echo "wt: invalid command: $action"
 		print_usage
 		;;
 esac
