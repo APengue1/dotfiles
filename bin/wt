@@ -5,7 +5,7 @@ set -e
 print_usage () {
 	echo 'Required args not supplied.'
 	echo '\nUsage:\n'
-	echo 'wt <add|a>'
+	echo 'wt <add|a> [worktree_dir]'
 	echo 'wt <remove|rm>'
 	echo 'wt <clone> <remote-url> [destination]'
 	exit 1
@@ -16,7 +16,8 @@ if [ $# -eq 0 ]; then
 fi
 
 add () {
-	git worktree add $(
+	worktree_dir=$1
+	git worktree add $worktree_dir $(
 		git branch --list | \
 		awk '{ print $NF }' | \
 		fzf
@@ -50,7 +51,7 @@ clone () {
 action=$1
 case $action in
 	"add"|"a")
-		add
+		add $2
 		;;
 	"remove"|"rm")
 		remove
