@@ -50,14 +50,14 @@ add () {
 }
 
 remove () {
-	to_remove=$(
+	worktree=$(
 		git $(git_dir) worktree list --porcelain | \
 		grep worktree | \
 		awk '{print $NF}' | \
 		fzf
 	)
-	git $(git_dir) worktree remove $to_remove
-	echo "Removed worktree:" $to_remove
+	git $(git_dir) worktree remove $worktree
+	echo "Removed worktree:" $worktree
 }
 
 clone () {
