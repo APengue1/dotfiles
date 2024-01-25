@@ -9,9 +9,10 @@ print_usage () {
 	fi
 
 	echo 'Usage:\n'
+	echo 'wt <clone> <remote-url> [destination] [--bare]'
 	echo 'wt <add|a> [worktree_dir]'
 	echo 'wt <remove|rm>'
-	echo 'wt <clone> <remote-url> [destination] [--bare]'
+	echo 'wt <help|-h|--help>'
 
 	exit $code
 }
