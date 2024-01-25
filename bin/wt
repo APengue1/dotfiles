@@ -11,7 +11,7 @@ print_usage () {
 	echo 'Usage:\n'
 	echo 'wt <add|a> [worktree_dir]'
 	echo 'wt <remove|rm>'
-	echo 'wt <clone> <remote-url> [destination]'
+	echo 'wt <clone> <remote-url> [destination] [--bare]'
 
 	exit $code
 }
@@ -43,7 +43,14 @@ remove () {
 
 clone () {
 	remote_url=$1
-	destination=$2
+	if [ "$2" = "--bare" ]; then
+		bare="--bare"
+	else
+		destination=$2
+		bare=$3
+	fi
+
+	main_dir="./"
 	clone_dir=$(
 		echo $(basename $remote_url) | \
 		awk -F '.' '{ print $1 }'
@@ -52,9 +59,20 @@ clone () {
 	if [ -n "$destination" ]; then
 		clone_dir=$destination
 	fi
+	if [ "$bare" = "--bare" ]; then
+		clone_dir="$clone_dir/.bare"
+		main_dir="../"
+	fi
 
 	git clone --bare $remote_url $clone_dir
-	git -C $clone_dir worktree add main
+	main_branch=$(
+		git -C $clone_dir branch --list | \
+		grep '*' | \
+		awk '{print $NF}'
+	)
+	git -C $clone_dir worktree add \
+		$main_dir/$main_branch \
+		$main_branch
 }
 
 action=$1
@@ -70,7 +88,7 @@ case $action in
 			echo "Remote URL required."
 			print_usage
 		fi
-		clone $2 $3
+		clone $2 $3 $4
 		;;
 	"-h" | "--help" | "help")
 		print_usage 0
