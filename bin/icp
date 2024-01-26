@@ -7,6 +7,8 @@
 ##
 ##
 
+set -e
+
 print_usage () {
     echo 'Usage: wt.sh <source> <destination>'
 }
@@ -17,31 +19,38 @@ if [ $# -lt 2 ];then
     exit 1
 fi
 
-if [ "$1" = "--check" ]; then
-    check=true
-    source=$2
+source=$1
+destination=$2
+icp_file=$source/.icp
+icp_file_tmp=$icp_file.tmp
+
+if [ "$3" = "--repeat" ]; then
+    if [ ! -f $icp_file ]; then
+        echo "Cannot repeat, no .icp file present."
+        exit 1
+    fi
+
+    files_to_copy=$(cat $icp_file)
 else
-    source=$1
-    destination=$2
+    files_to_copy=$(
+        git -C $source ls-files --ignored --others --exclude-standard | \
+        fzf --multi --bind ctrl-a:select-all,ctrl-d:deselect-all,ctrl-t:toggle-all
+    )
 fi
 
-files_to_copy=$(
-    git -C $source ls-files \
-        --ignored --others --exclude-standard | \
-    grep -v -e node_modules -e dist
-)
+cat /dev/null > $icp_file_tmp
 
 for file_path in $files_to_copy
 do
     echo $file_path
+    echo $file_path >> $icp_file_tmp
 
-    if [ ! $check ]; then
-        source_file_path=$source/$file_path
-        file_name=$(basename $file_path)
-        destination_file_dir=$destination/$(dirname $file_path)
+    source_file_path=$source/$file_path
+    file_name=$(basename $file_path)
+    destination_file_dir=$destination/$(dirname $file_path)
 
-        mkdir -p $destination_file_dir
-        cp $source_file_path $destination_file_dir/$file_name
-    fi
+    mkdir -p $destination_file_dir
+    cp $source_file_path $destination_file_dir/$file_name
 done
 
+mv $icp_file_tmp $icp_file
