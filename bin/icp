@@ -17,24 +17,31 @@ if [ $# -lt 2 ];then
     exit 1
 fi
 
-source=$1
-destination=$2
+if [ "$1" = "--check" ]; then
+    check=true
+    source=$2
+else
+    source=$1
+    destination=$2
+fi
 
 files_to_copy=$(
-    git -C $source ls-files --ignored --others --exclude-standard | \
+    git -C $source ls-files \
+        --ignored --others --exclude-standard | \
     grep -v -e node_modules -e dist
 )
 
-echo "Copying the following files..."
 for file_path in $files_to_copy
 do
     echo $file_path
 
-    source_file_path=$source/$file_path
-    file_name=$(basename $file_path)
-    destination_file_dir=$destination/$(dirname $file_path)
+    if [ ! $check ]; then
+        source_file_path=$source/$file_path
+        file_name=$(basename $file_path)
+        destination_file_dir=$destination/$(dirname $file_path)
 
-    mkdir -p $destination_file_dir
-    cp $source_file_path $destination_file_dir/$file_name
+        mkdir -p $destination_file_dir
+        cp $source_file_path $destination_file_dir/$file_name
+    fi
 done
 
