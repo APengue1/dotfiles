@@ -26,11 +26,12 @@ list_branches () {
 	awk '{ print $NF }'
 }
 
-list_worktrees () {
+user_selects_worktree () {
 	git worktree list | \
 	grep -v '(bare)'  | \
-	awk '{print $1}' | \
-	sed "s.$(pwd)/.."
+	awk '{print $1}'  | \
+	sed "s.$(pwd)/.." | \
+	fzf --preview='echo; git -C {} log --oneline'
 }
 
 new () {
@@ -54,7 +55,8 @@ add () {
 }
 
 remove () {
-	worktree=$(list_worktrees | fzf --preview='echo; git -C {} log --oneline')
+	worktree=$(user_selects_worktree)
+
 	git worktree remove $worktree
 	echo "Removed worktree:" $worktree
 }
