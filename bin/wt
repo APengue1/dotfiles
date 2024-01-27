@@ -16,8 +16,8 @@ if [ $# -eq 0 ]; then
 	exit 1
 fi
 
-_fzf () {
-	fzf --preview='echo; git log --oneline {}'
+user_selects_branch () {
+	list_branches | fzf --preview='echo; git log --oneline {}'
 }
 
 list_branches () {
@@ -29,12 +29,12 @@ list_branches () {
 list_worktrees () {
 	git worktree list | \
 	grep -v '(bare)'  | \
-	awk '{print $NF}' | \
-	tr --delete '[]'
+	awk '{print $1}' | \
+	sed "s.$(pwd)/.."
 }
 
 new () {
-	worktree=$(list_branches | _fzf)
+	worktree=$(user_selects_branch)
 
 	if [ -z "$worktree_dir" ]; then
 		worktree_dir="$worktree_name"
@@ -44,7 +44,7 @@ new () {
 }
 
 add () {
-	worktree=$(list_branches | _fzf)
+	worktree=$(user_selects_branch)
 
 	if [ -z "$worktree_dir" ]; then
 		worktree_dir="$worktree"
@@ -54,7 +54,7 @@ add () {
 }
 
 remove () {
-	worktree=$(list_worktrees | _fzf)
+	worktree=$(list_worktrees | fzf --preview='echo; git -C {} log --oneline')
 	git worktree remove $worktree
 	echo "Removed worktree:" $worktree
 }
