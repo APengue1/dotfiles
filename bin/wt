@@ -15,12 +15,16 @@ if [ $# -eq 0 ]; then
 	exit 1
 fi
 
+_fzf () {
+	fzf --preview='git log --oneline {}'
+}
+
 add () {
 	worktree=$(
 		git  branch --list -a | \
 		sed 's.remotes/origin/..' | \
 		awk '{ print $NF }' | \
-		fzf
+		_fzf
 	)
 
 	if [ "$1" ]; then
@@ -37,7 +41,7 @@ remove () {
 		git  worktree list --porcelain | \
 		grep worktree | \
 		awk '{print $NF}' | \
-		fzf
+		_fzf
 	)
 	git  worktree remove $worktree
 	echo "Removed worktree:" $worktree
