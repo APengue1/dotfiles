@@ -52,7 +52,12 @@ else
         git -C $source ls-files --ignored --others --exclude-standard | \
         fzf --multi \
             --bind ctrl-a:select-all,ctrl-d:deselect-all,ctrl-t:toggle-all \
-            --preview='head --lines=100 -v {}'
+            --preview='\
+                echo "ctrl-a: select-all\t tab: toggle select";
+                echo "ctrl-d: deselect-all\t !:   negation";
+                echo "ctrl-t: toggle-all\t |:   or\n";
+                head --lines=100 -v {}
+            '
     )
 fi
 
