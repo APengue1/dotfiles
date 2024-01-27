@@ -34,7 +34,9 @@ if [ "$3" = "--repeat" ]; then
 else
     files_to_copy=$(
         git -C $source ls-files --ignored --others --exclude-standard | \
-        fzf --multi --bind ctrl-a:select-all,ctrl-d:deselect-all,ctrl-t:toggle-all
+        fzf --multi \
+            --bind ctrl-a:select-all,ctrl-d:deselect-all,ctrl-t:toggle-all \
+            --preview='head --lines=100 -v {}'
     )
 fi
 
