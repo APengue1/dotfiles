@@ -19,21 +19,31 @@ _fzf () {
 	fzf --preview='echo; git log --oneline {}'
 }
 
-add () {
-	worktree=$(
-		git  branch --list -a | \
-		sed 's.remotes/origin/..' | \
-		awk '{ print $NF }' | \
-		_fzf
-	)
+_user_pick_branch () {
+	git  branch --list -a | \
+	sed 's.remotes/origin/..' | \
+	awk '{ print $NF }' | \
+	_fzf
+}
 
-	if [ "$1" ]; then
-		worktree_dir="$1"
-	else
+new () {
+	worktree=$(_user_pick_branch)
+
+	if [ -z "$worktree_dir" ]; then
+		worktree_dir="$worktree_name"
+	fi
+
+	git worktree add $worktree_dir -b $worktree_name $worktree
+}
+
+add () {
+	worktree=$(_user_pick_branch)
+
+	if [ -z "$worktree_dir" ]; then
 		worktree_dir="$worktree"
 	fi
 
-	git  worktree add $worktree_dir $worktree
+	git worktree add $worktree_dir $worktree
 }
 
 remove () {
@@ -71,8 +81,19 @@ clone () {
 
 cmd=$1
 case $cmd in
+	"new" | "n")
+		if [ $# -lt 2 ]; then
+			echo "-b: worktree_name required."
+			print_usage
+			exit 1
+		fi
+		worktree_name=$2
+		worktree_dir=$3
+		new
+		;;
 	"add" | "a")
-		add $2
+		worktree_dir=$2
+		add
 		;;
 	"remove" | "rm")
 		remove
