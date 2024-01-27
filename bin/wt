@@ -4,10 +4,11 @@ set -e
 
 print_usage () {
 	echo 'Usage:\n'
-	echo 'wt <clone> <remote-url> [destination]'
-	echo 'wt <add|a> [worktree_dir]'
-	echo 'wt <remove|rm>'
-	echo 'wt <help|-h|--help>'
+	echo 'wt clone <remote-url> [clone_dir]'
+	echo 'wt new <worktree_name> [worktree_dir]'
+	echo 'wt add [worktree_dir]'
+	echo 'wt remove'
+	echo 'wt help|-h|--help'
 }
 
 if [ $# -eq 0 ]; then
@@ -81,7 +82,7 @@ cmd=$1
 case $cmd in
 	"new" | "n")
 		if [ $# -lt 2 ]; then
-			echo "-b: worktree_name required."
+			echo "worktree_name required."
 			print_usage
 			exit 1
 		fi
@@ -96,7 +97,7 @@ case $cmd in
 	"remove" | "rm")
 		remove
 		;;
-	"clone")
+	"clone" | "c")
 		if [ $# -lt 2 ]; then
 			echo "Remote URL required."
 			print_usage
