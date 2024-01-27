@@ -104,8 +104,8 @@ case $cmd in
 			exit 1
 		fi
 
-		remote_url=$1
-		destination=$2
+		remote_url=$2
+		destination=$3
 		clone
 		;;
 	"-h" | "--help" | "help")
