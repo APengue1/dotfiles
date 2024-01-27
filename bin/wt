@@ -35,23 +35,23 @@ user_selects_worktree () {
 }
 
 new () {
-	worktree=$(user_selects_branch)
+	branch=$(user_selects_branch)
 
 	if [ -z "$worktree_dir" ]; then
 		worktree_dir="$worktree_name"
 	fi
 
-	git worktree add $worktree_dir -b $worktree_name $worktree
+	git worktree add $worktree_dir -b $worktree_name $branch
 }
 
 add () {
-	worktree=$(user_selects_branch)
+	branch=$(user_selects_branch)
 
 	if [ -z "$worktree_dir" ]; then
-		worktree_dir="$worktree"
+		worktree_dir="$branch"
 	fi
 
-	git worktree add $worktree_dir $worktree
+	git worktree add $worktree_dir $branch
 }
 
 remove () {
