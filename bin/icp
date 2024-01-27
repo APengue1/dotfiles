@@ -10,8 +10,18 @@
 set -e
 
 print_usage () {
-    echo 'Usage: wt.sh <source> <destination>'
+    echo 'Usage:\n'
+    echo 'icp <source> <destination> [--repeat]'
+    echo 'icp generate <source>'
+    echo 'icp <help|-h|--help>'
 }
+
+case $1 in
+    '-h' | '--help' | 'help')
+        print_usage
+        exit 0
+    ;;
+esac
 
 if [ $# -lt 2 ];then
     echo 'Required args not supplied.'
