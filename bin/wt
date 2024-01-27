@@ -58,9 +58,6 @@ remove () {
 }
 
 clone () {
-	remote_url=$1
-	destination=$2
-
 	clone_dir=$(
 		echo $(basename $remote_url) | \
 		awk -F '.' '{ print $1 }'
@@ -104,7 +101,10 @@ case $cmd in
 			print_usage
 			exit 1
 		fi
-		clone $2 $3
+
+		remote_url=$1
+		destination=$2
+		clone
 		;;
 	"-h" | "--help" | "help")
 		print_usage
