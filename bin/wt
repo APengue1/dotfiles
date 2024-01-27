@@ -16,7 +16,7 @@ if [ $# -eq 0 ]; then
 fi
 
 _fzf () {
-	fzf --preview='git log --oneline {}'
+	fzf --preview='echo; git log --oneline {}'
 }
 
 add () {
