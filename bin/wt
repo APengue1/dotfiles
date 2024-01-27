@@ -19,15 +19,21 @@ _fzf () {
 	fzf --preview='echo; git log --oneline {}'
 }
 
-_user_pick_branch () {
-	git  branch --list -a | \
+list_branches () {
+	git  branch --list -a     | \
 	sed 's.remotes/origin/..' | \
-	awk '{ print $NF }' | \
-	_fzf
+	awk '{ print $NF }'
+}
+
+list_worktrees () {
+	git worktree list | \
+	grep -v '(bare)'  | \
+	awk '{print $NF}' | \
+	tr --delete '[]'
 }
 
 new () {
-	worktree=$(_user_pick_branch)
+	worktree=$(list_branches | _fzf)
 
 	if [ -z "$worktree_dir" ]; then
 		worktree_dir="$worktree_name"
@@ -37,7 +43,7 @@ new () {
 }
 
 add () {
-	worktree=$(_user_pick_branch)
+	worktree=$(list_branches | _fzf)
 
 	if [ -z "$worktree_dir" ]; then
 		worktree_dir="$worktree"
@@ -47,12 +53,7 @@ add () {
 }
 
 remove () {
-	worktree=$(
-		git  worktree list --porcelain | \
-		grep worktree | \
-		awk 'BEGIN { FS="/" } $1 ~ /worktree/ {print $NF}' | \
-		_fzf
-	)
+	worktree=$(list_worktrees | _fzf)
 	git worktree remove $worktree
 	echo "Removed worktree:" $worktree
 }
