@@ -11,7 +11,7 @@ set -e
 
 print_usage () {
     echo 'Usage:\n'
-    echo 'icp <source> <destination> [--repeat]'
+    echo 'icp <source> <destination> [--generated]'
     echo 'icp generate <source>'
     echo 'icp <help|-h|--help>'
 }
@@ -40,9 +40,9 @@ fi
 icp_file=$source/.icp
 icp_file_tmp=$icp_file.tmp
 
-if [ "$3" = "--repeat" ]; then
+if [ "$3" = "--generated" ]; then
     if [ ! -f $icp_file ]; then
-        echo "Cannot repeat, no .icp file present."
+        echo "Cannot do --generated, no .icp file present in source directory."
         exit 1
     fi
 
