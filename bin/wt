@@ -30,7 +30,7 @@ user_selects_worktree () {
 	git worktree list | \
 	grep -v '(bare)'  | \
 	awk '{print $1}'  | \
-	sed "s.$(pwd)/.." | \
+	sed "s|$(pwd)/||" | \
 	fzf --preview='echo; git -C {} log --oneline'
 }
 
