@@ -21,20 +21,11 @@ user_selects_branch () {
 	fzf --preview='echo; git log --oneline {}'
 }
 
-list_remote_branches () {
-	git ls-remote --heads --quiet |
-	sed 's|refs/heads/||' |
-	awk '{ print $NF }'
-}
-
-list_local_branches () {
+list_all_branches () {
 	git branch --list -a | \
 	sed 's.remotes/origin/..' | \
-	awk '{ print $NF }'
-}
-
-list_all_branches () {
-	( list_local_branches & list_remote_branches ) | sort -u
+	awk '{ print $NF }' |
+	sort -u
 }
 
 user_selects_worktree () {
