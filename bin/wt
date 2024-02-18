@@ -7,7 +7,7 @@ print_usage () {
 	echo 'wt clone <remote-url> [clone_dir]'
 	echo 'wt new <worktree_name> [worktree_dir]'
 	echo 'wt add [worktree_dir]'
-	echo 'wt remove'
+	echo 'wt remove [-d|--delete-branch]'
 	echo 'wt help|-h|--help'
 }
 
@@ -59,9 +59,14 @@ add () {
 
 remove () {
 	worktree=$(user_selects_worktree)
+	branch=$(git -C $worktree branch --show-current)
 
 	git worktree remove $worktree
 	echo "Removed worktree:" $worktree
+
+	if [ $delete_branch ]; then
+		git branch -d $branch
+	fi
 }
 
 clone () {
@@ -107,6 +112,10 @@ case $cmd in
 		add
 		;;
 	"remove" | "rm")
+		case $2 in
+			"-d" | "--delete-branch")
+				delete_branch=true
+		esac
 		remove
 		;;
 	"clone" | "c")
