@@ -63,6 +63,7 @@ add () {
 	fi
 
 	git worktree add $worktree_dir $branch
+	git -C $worktree_dir branch -u origin/$branch
 }
 
 remove () {
@@ -83,12 +84,19 @@ clone () {
 	fi
 
 	git clone --bare $remote_url $clone_dir/.git
+
+	# Workaround to Git worktree using bare repository and cannot fetch remote branches
+	# See https://morgan.cugerone.com/blog/workarounds-to-git-worktree-using-bare-repository-and-cannot-fetch-remote-branches/
+	git -C $clone_dir config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
+	git -C $clone_dir fetch origin
+
 	main_branch=$(
 		git -C $clone_dir branch --list | \
 		grep '*' | \
 		awk '{print $NF}'
 	)
 	git -C $clone_dir worktree add $main_branch
+	git -C $clone_dir/$main_branch branch -u origin/$main_branch
 }
 
 cmd=$1
