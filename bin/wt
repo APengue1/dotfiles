@@ -43,7 +43,7 @@ new () {
 		worktree_dir="$worktree_name"
 	fi
 
-	git worktree add $worktree_dir -b $worktree_name $branch
+	git worktree add --no-track $worktree_dir -b $worktree_name origin/$branch
 }
 
 add () {
