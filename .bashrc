@@ -112,3 +112,7 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# Load the general rc file
+if [ -e "$HOME/.xrc" ] ; then
+    source $HOME/.xrc
+fi
