@@ -17,7 +17,7 @@ The following are automatically installed
 - [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
 
 # Install
-- `git clone https://github.com/APengue1/dotfiles.git ~/.dotfiles`
+- `git clone git@github.com:APengue1/dotfiles.git ~/.dotfiles`
 - `cd && .dotfiles/install.sh`
 
 # Usage
