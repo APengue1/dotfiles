@@ -21,3 +21,7 @@ if [ -f $HOME/.localrc ]; then
     source "$HOME/.localrc"
 fi
 
+# Start tmux if tmux exists and not currently in session
+if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
+    exec tmux
+fi
