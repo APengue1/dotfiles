@@ -15,9 +15,3 @@ if [ -n "$BASH_VERSION" ]; then
 	. "$HOME/.bashrc"
     fi
 fi
-
-# Load the general rc file
-if [ -f "$HOME/.xrc" ] ; then
-    . "$HOME/.xrc"
-fi
-
