@@ -11,4 +11,4 @@ else
 		org_repo=$(echo $git_remote_url | awk -F: '{ print $NF }')
 fi
 
-echo $org_repo | sed 's/.git//'
+echo $org_repo | sed 's/.git//' | tr "[:upper:]" "[:lower:]"
