@@ -1,4 +1,4 @@
 alias config='$(which git) --git-dir=$HOME/.dotfiles/.git/ --work-tree=$HOME'
 alias ll='ls -alF'
 alias v='nvim'
-
+alias vrc='XDG_CONFIG_HOME=~/git/apengue1/nvim/.config XDG_DATA_HOME=~/git/apengue1/nvim/.local/share ~/Apps/neovim/rc'
