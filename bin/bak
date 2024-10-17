@@ -1,0 +1,37 @@
+#!/bin/sh
+
+print_usage () {
+    echo 'Usage:'
+    echo 'bak [undo|-u|--undo] <file> [suffix]'
+    echo 'bak <help|-h|--help>'
+}
+
+file=$1
+suffix=".bak."
+
+case $1 in
+    '-h' | '--help' | 'help')
+        print_usage
+        exit
+    ;;
+    '-u' | '--undo' | 'undo')
+        undo=true
+        file=$2
+    ;;
+esac
+
+if ! [ -e "$file" ]; then
+    echo "Does not exist: $file"
+    print_usage
+    exit
+fi
+
+if [ $undo ]; then
+    destination=$(echo $file | awk -v FS="$suffix" '{ print $1 }')
+else
+    destination="$file$suffix$2"
+fi
+
+
+echo "mv $file $destination"
+mv $file $destination
