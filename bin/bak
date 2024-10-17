@@ -23,7 +23,7 @@ esac
 if ! [ -e "$file" ]; then
     echo "Does not exist: $file"
     print_usage
-    exit
+    exit 1
 fi
 
 if [ $undo ]; then
@@ -32,6 +32,10 @@ else
     destination="$file$suffix$2"
 fi
 
+if [ -e "$destination" ]; then
+    echo "Destination already exists: $destination"
+    exit 1
+fi
 
 echo "mv $file $destination"
 mv $file $destination
