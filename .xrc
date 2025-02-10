@@ -16,13 +16,13 @@ if [ -f $HOME/.env ]; then
     source "$HOME/.env"
 fi
 
-if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then
-    source $HOME/.nix-profile/etc/profile.d/nix.sh
-fi
-
 # Load the .localrc file for local specific settings
 if [ -f $HOME/.localrc ]; then
     source "$HOME/.localrc"
+fi
+
+if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then
+    source $HOME/.nix-profile/etc/profile.d/nix.sh
 fi
 
 # Start tmux if tmux exists and not currently in session
