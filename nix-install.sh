@@ -10,6 +10,7 @@ nix-channel --update
 # Install our desired packages.
 packages=(
         nix
+        entr
         ripgrep
         fzf
         tmux
