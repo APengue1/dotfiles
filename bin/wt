@@ -36,6 +36,17 @@ user_selects_worktree () {
 	fzf --preview='echo; git -C {} log --oneline'
 }
 
+get_main_branch() {
+	git_dir="$1"
+	if [ -z $git_dir ]; then
+		git_dir="./"
+	fi
+
+	git -C $git_dir branch --list | \
+	grep '*' | \
+	awk '{print $NF}'
+}
+
 new () {
 	branch=$(user_selects_branch)
 
@@ -86,11 +97,8 @@ clone () {
 	git -C $clone_dir config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
 	git -C $clone_dir fetch origin
 
-	main_branch=$(
-		git -C $clone_dir branch --list | \
-		grep '*' | \
-		awk '{print $NF}'
-	)
+	main_branch=$(get_main_branch $clone_dir)
+
 	git -C $clone_dir worktree add $main_branch
 	git -C $clone_dir/$main_branch branch -u origin/$main_branch
 }
