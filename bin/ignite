@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+
+ignite_file=".ignite"
+
+if [ ! -f $ignite_file ]; then
+	echo "No $ignite_file file found"
+	exit 1
+fi
+
+cat $ignite_file | sh
