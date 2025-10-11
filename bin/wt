@@ -57,6 +57,7 @@ new () {
 	git worktree add --no-track $worktree_dir -b $worktree_name origin/$branch
 
 	icp $(get_main_branch) $worktree_dir
+	cd $worktree_dir && ignite
 }
 
 add () {
@@ -70,6 +71,7 @@ add () {
 	git -C $worktree_dir branch -u origin/$branch
 
 	icp $(get_main_branch) $worktree_dir
+	cd $worktree_dir && ignite
 }
 
 remove () {
