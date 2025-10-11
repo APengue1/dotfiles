@@ -10,9 +10,8 @@
 set -e
 
 print_usage () {
-    echo 'Usage:\n'
-    echo 'icp <source> <destination> [--generated]'
-    echo 'icp generate <source>'
+    echo 'Usage:'
+    echo 'icp [source] [destination]'
     echo 'icp <help|-h|--help>'
 }
 
@@ -23,29 +22,17 @@ case $1 in
     ;;
 esac
 
-if [ $# -lt 2 ];then
-    echo 'Required args not supplied.'
-    print_usage
-    exit 1
-fi
+source=$1
+destination=$2
 
-if [ "$1" = "generate" ]; then
-    generate_only=true
-    source=$2
-else
-    source=$1
-    destination=$2
+if [ -z  "$1" ]; then
+    source="."
 fi
 
 icp_file=$source/.icp
 icp_file_tmp=$icp_file.tmp
 
-if [ "$3" = "--generated" ]; then
-    if [ ! -f $icp_file ]; then
-        echo "Cannot do --generated, no .icp file present in source directory."
-        exit 1
-    fi
-
+if [ -f $icp_file ]; then
     files_to_copy=$(cat $icp_file)
 else
     files_to_copy=$(
@@ -68,7 +55,7 @@ do
     echo $file_path
     echo $file_path >> $icp_file_tmp
 
-    if [ ! $generate_only ]; then
+    if [ $destination ]; then
         source_file_path=$source/$file_path
         file_name=$(basename $file_path)
         destination_file_dir=$destination/$(dirname $file_path)
