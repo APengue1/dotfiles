@@ -7,4 +7,6 @@ if [ ! -f $ignite_file ]; then
 	exit 0
 fi
 
+echo "Found $ignite_file, igniting..."
+
 cat $ignite_file | sh
