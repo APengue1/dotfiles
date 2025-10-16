@@ -9,4 +9,4 @@ fi
 
 echo "Found $ignite_file, igniting..."
 
-cat $ignite_file | sh
+cat $ignite_file | $SHELL
