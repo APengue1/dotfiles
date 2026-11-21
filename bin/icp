@@ -34,7 +34,7 @@ icp_file_tmp=$icp_file.tmp
 
 if [ -f $icp_file ]; then
     files_to_copy=$(cat $icp_file)
-else
+elif [ -z "$destination" ]; then
     files_to_copy=$(
         git -C $source ls-files --ignored --others --exclude-standard | \
         fzf --multi \
@@ -46,6 +46,11 @@ else
                 head --lines=100 -v {}
             '
     )
+fi
+
+if [ -z "$files_to_copy" ]; then
+    echo "No .icp file found"
+    exit 0
 fi
 
 cat /dev/null > $icp_file_tmp
